@@ -135,6 +135,7 @@ namespace CapData
             this.timer1_Tick(this.timer1, EventArgs.Empty);
         }
 
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (Program.CountBrowserForm >= 2) return;
@@ -182,6 +183,11 @@ namespace CapData
                 }
             }
             return true; 
+        }
+
+        private void txtStatus_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

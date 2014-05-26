@@ -42,6 +42,7 @@
             this.txtStatus.Size = new System.Drawing.Size(382, 305);
             this.txtStatus.TabIndex = 0;
             this.txtStatus.Text = "";
+            this.txtStatus.TextChanged += new System.EventHandler(this.txtStatus_TextChanged);
             // 
             // timer1
             // 
@@ -57,8 +58,8 @@
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
 
         }

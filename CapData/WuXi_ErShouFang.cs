@@ -60,32 +60,45 @@ namespace CapData
         void Browser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             if (e.Url != Document.Url) return;
+
+            /// 第一遍，获取所有的链接
             if (e.Url.ToString().StartsWith("http://esf.wuxi.soufun.com/house/"))
             {
-                for (int i = 1; i <= 30; i++)
+                HtmlElement houses = GetElementByClassName("houseList","div");
+                foreach (HtmlElement dt in houses.Children)
                 {
                     try
                     {
-                        HtmlElement dt = Document.GetElementById("list_" + i).Children[0].Children[1].Children[0].Children[0];
+                        //HtmlElement dt = Document.GetElementById("list_" + i).Children[1];
+
+                        /// 获得房源信息的详细地址
                         string href = dt.Children[0].Children[0].GetAttribute("href");
-                        if (Fn.GetDT_MySQL("select * from "+tName+" where sourceLink='" + Fn.KW_Equal(href) + "'").Rows.Count > 0)
+                        if (Fn.GetDT_MySQL("select * from " + tName + " where sourceLink='" + Fn.KW_Equal(href) + "'").Rows.Count > 0)
                         {
                             continue;
                         }
+
                         string[] val = new string[2];
-                        val[0]=dt.Children[1].Children[1].GetAttribute("title");
-                        val[1]="";
-                        foreach (HtmlElement a in dt.Children[3].Children)
+
+                        /// 取得房源名
+                        val[0] = dt.Children[1].Children[0].Children[0].GetAttribute("title");
+                        val[1] = "";
+
+                        /// 取得房源发布者信息：机构，中价人，更新时间
+                        foreach (HtmlElement a in dt.Children[1].Children[3].Children)
                         {
                             val[1] += a.InnerText + " ";
                         }
+
                         listLink.Add(new KeyValuePair<string, object>(href, val));
                     }
-                    catch {
+                    catch
+                    {
                         this.NavToNext();
                         return;
-                    }
+                    } 
                 }
+        
                 this.NavToNextPage();
                 return;
             }
