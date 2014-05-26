@@ -96,12 +96,16 @@ namespace CapData
                     {
                         this.NavToNext();
                         return;
-                    } 
+                    }
+
+                    // debug
                 }
         
                 this.NavToNextPage();
                 return;
             }
+
+            Program.MainForm.AddMessage("无锡二手房：链接：" + linkCurrent.Key);
 
             Model_House_Sec mhs = new Model_House_Sec("无锡");
             mhs.SourceLink = linkCurrent.Key;
@@ -109,7 +113,8 @@ namespace CapData
             mhs.PostBy = (linkCurrent.Value as string[])[1];
             try
             {
-                mhs.Title = GetElementByClassName("icon_tag20120517", "h1").InnerText;
+                var elm = GetElementByClassName("icon_tag20120517 mt8", "h1");
+                mhs.Title = elm.InnerText;
             }
             catch { }
 

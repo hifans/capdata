@@ -146,6 +146,7 @@ namespace CapData
             int i = 0;
             foreach (HtmlElement item in coll)
             {
+                var attr = item.GetAttribute("classname");
                 if (item.GetAttribute("classname") == className) {
                     if (i >= index) return item;
                     else i++;
