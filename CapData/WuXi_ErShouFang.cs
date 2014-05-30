@@ -37,10 +37,17 @@ namespace CapData
         {
             page++;
             if (page > 100)
+            //if (page > 2)
             {
                 this.NavToNext();
                 return;
             }
+
+            /// 链接的构造结构
+            ///h3{数字}，这个是排序的
+            ///w3{数字}，这个是挂牌时间范围的参数
+            ///i3{数字}，这个是链接房子
+            ///该链接是获得当天的交易的二手房子
             this.Navigate("http://esf.wuxi.soufun.com/house/h316-w31-i3" + page + "/");
         }
 
@@ -69,8 +76,6 @@ namespace CapData
                 {
                     try
                     {
-                        //HtmlElement dt = Document.GetElementById("list_" + i).Children[1];
-
                         /// 获得房源信息的详细地址
                         string href = dt.Children[0].Children[0].GetAttribute("href");
                         if (Fn.GetDT_MySQL("select * from " + tName + " where sourceLink='" + Fn.KW_Equal(href) + "'").Rows.Count > 0)
@@ -90,6 +95,7 @@ namespace CapData
                             val[1] += a.InnerText + " ";
                         }
 
+                        ///加入到链接例表中
                         listLink.Add(new KeyValuePair<string, object>(href, val));
                     }
                     catch
@@ -100,8 +106,14 @@ namespace CapData
 
                     // debug
                 }
+
         
                 this.NavToNextPage();
+                return;
+            }
+            else if (e.Url.ToString().StartsWith("http://esf.wuxi.soufun.com/city_list.htm"))
+            {
+                this.NavToNext();
                 return;
             }
 

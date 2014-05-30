@@ -135,12 +135,12 @@ namespace CapData
             this.timer1_Tick(this.timer1, EventArgs.Empty);
         }
 
-        //private void MainForm_Load(object sender, EventArgs e)
-        //{
-        //    listForm.Add(new WuXi_ErShouFang());
-        //    this.timer1.Start();
-        //    this.timer1_Tick(this.timer1, EventArgs.Empty);
-        //}
+        private void MainForm_Load_test(object sender, EventArgs e)
+        {
+            listForm.Add(new WuXi_ErShouFang());
+            this.timer1.Start();
+            this.timer1_Tick(this.timer1, EventArgs.Empty);
+        }
 
 
         private void timer1_Tick(object sender, EventArgs e)
